@@ -25,6 +25,7 @@ async function run() {
         // Connect the client to the server	(optional starting in v4.7)
 
         const collection = client.db('book').collection("bookCollection")
+        const userInfo = client.db('book').collection("userInfo")
 
         app.get('/books', async (req, res) => {
             const filter = req.query.search|| "";
@@ -43,7 +44,8 @@ async function run() {
 
         app.post('/info', async (req,res)=>{
             const info = req.body;
-            
+            const result = await userInfo.insertOne(info)
+            res.send(result)
         })
 
 
